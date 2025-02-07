@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كارد في وسط الصفحة مع شهادات الخبرة والمؤهلات العلمية</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f7f4f5, #665067);
+        }
+
+        .container {
+            display: flex;
+            flex: 1;
+            position: relative;
+        }
+
+        .half {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            color: rgb(0, 0, 0);
+        }
+
+        .left {
+            background-color: #f7f4f5; /* لون القسم الأيسر */
+        }
+
+        .right {
+            background-color: #665067; /* لون القسم الأيمن */
+        }
+
+        .card {
+            position: absolute;
+            top: 50%;
+            left: 45%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            background-color: rgb(255, 255, 255);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 2; /* لجعل الكارد فوق القسمين */
+            width: 300px;
+            height: 400px;
+        }
+
+        .profile-img {
+            width: 250px; /* تكبير حجم الصورة */
+            height: 200px; /* تكبير حجم الصورة */
+            border-radius: 20%;
+            border: 2px solid rgba(0, 0, 0, 0.5); /* حدود شفافة */
+            margin-bottom: 10px;
+        }
+
+        .social-icons {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .social-icons a {
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .social-icons a img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .social-icons a:hover {
+            transform: scale(1.1);
+        }
+
+        .left {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: right;
+            padding: 20px;
+        }
+
+        .left h1 {
+            font-size: 100px;
+            margin: 0;
+            color: #665067;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .left h2 {
+            font-size: 25px;
+            margin: 10px 0 20px;
+            color: #555;
+        }
+
+        .left .info {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #444;
+        }
+
+        .left .info a {
+            color: #665067;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .left .info a:hover {
+            color: #c0392b;
+        }
+
+        .left .info strong {
+            color: #2c3e50;
+        }
+
+        .left .info p {
+            margin: 10px 0;
+        }
+
+        .left .info p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* تنسيق الأزرار */
+        .buttons {
+            display: flex;
+            gap: 10px; /* مسافة بين الأزرار */
+            margin-top: 20px;
+        }
+
+        .buttons a {
+            background-color: #665067;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .buttons a:hover {
+            background-color: #4a3a4f; /* تغيير اللون عند التمرير */
+        }
+
+        /* تنسيق قسم الدورات المهنية */
+        .skills, .experience, .qualifications {
+            margin-top: 30px;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .skill-item, .experience-item, .qualification-item {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .skill-item:hover, .experience-item:hover, .qualification-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .skill-item h3, .experience-item h3, .qualification-item h3 {
+            margin: 0;
+            font-size: 20px;
+            color: #665067;
+        }
+
+        .skill-item p, .experience-item p, .qualification-item p {
+            margin: 5px 0 0;
+            font-size: 16px;
+            color: #555;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .half {
+                flex: none;
+                width: 100%;
+                height: auto;
+                padding: 20px;
+            }
+
+            .card {
+                position: static;
+                transform: none;
+                margin: 20px auto;
+                width: 80%;
+                height: auto;
+                order: -1; /* جعل الكارد يظهر أولاً */
+            }
+
+            .left {
+                order: 1; /* جعل المعلومات الشخصية تظهر بعد الكارد */
+            }
+
+            .left h1 {
+                font-size: 50px;
+            }
+
+            .left h2 {
+                font-size: 20px;
+            }
+
+            .left .info {
+                font-size: 16px;
+            }
+
+            .buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .buttons a {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="half left">
+            <h1>Hello</h1>
+            <h2>Here's who I am &amp; what I do</h2>
+            <div class="info">
+                <p><strong>الاسم:</strong> محمود علي السيد علي</p>
+                <p><strong>العنوان:</strong> حولي، شارع المثني، خلف مركز الحياة الطبي</p>
+                <!-- <p><strong>ت:</strong> 66472834</p> -->
+                <p><strong>ت:</strong><a href="tel:66472834">66472834</a></p>
+                <p><strong>بريد إلكتروني:</strong> <a href="mailto:elsenatorm68@gmail.com">elsenatorm68@gmail.com</a></p>
+                <p><strong>الإقامة:</strong> مادة 18</p>
+            </div>
+            <!-- الأزرار -->
+            <div class="buttons">
+                <a href="#skills">المهارات المهنية</a>
+                <a href="#experience">شهادات الخبرة</a>
+                <a href="#qualifications">المؤهلات العلمية</a>
+            </div>
+        </div>
+        <div class="half right"></div>
+        <div class="card">
+            <img src="images/محمود على.PNG" alt="صورة شخصية" class="profile-img">
+            <h2>Mahmoud Ali Al-Sayed</h2>
+            <hr>
+            <h2>Lawyer</h2>
+            <div class="social-icons">
+                <a href="#" target="_blank"><img src="images/facebook.png" alt="Facebook"></a>
+                <a href="#" target="_blank"><img src="images/instagram.png" alt="Instagram"></a>
+                <a href="#" target="_blank"><img src="images/whatsapp.png" alt="WhatsApp"></a>
+                <a href="#" target="_blank"><img src="images/x.png" alt="X"></a>
+                <a href="#" target="_blank"><img src="images/linkedin.png" alt="LinkedIn"></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- قسم المؤهلات العلمية -->
+    <div class="qualifications" id="qualifications">
+        <h2 style="text-align: center; color: #665067;">المؤهلات العلمية</h2>
+        <div class="qualification-item">
+            <h3>ماجستير في القانون العام</h3>
+            <p>جامعة أسيوط</p>
+        </div>
+        <div class="qualification-item">
+            <h3>دراسات عليا دبلوم القانون العام</h3>
+            <p>جامعة أسيوط</p>
+        </div>
+        <div class="qualification-item">
+            <h3>دراسات عليا دبلوم القانون والتحكيم</h3>
+            <p>جامعة بنها</p>
+        </div>
+        <div class="qualification-item">
+            <h3>ليسانس حقوق</h3>
+            <p>جامعة أسيوط</p>
+        </div>
+        <div class="qualification-item">
+            <h3>دراسة عسكرية وقيادية</h3>
+            <p>كلية الضباط الاحتياط بالقوات المسلحة المصرية</p>
+        </div>
+        <div class="qualification-item">
+            <h3>دراسة عسكرية وقيادية</h3>
+            <p>معهد حرس الحدود بالقوات المسلحة المصرية</p>
+        </div>
+    </div>
+    <!-- قسم شهادات الخبرة -->
+    <div class="experience" id="experience">
+        <h2 style="text-align: center; color: #665067;">شهادات الخبرة</h2>
+        <div class="experience-item">
+            <h3>شهادة IC3</h3>
+        </div>
+        <div class="experience-item">
+            <h3>شهادة خبرة في الأعمال الإدارية والقيادة</h3>
+            <p>القوات المسلحة المصرية</p>
+        </div>
+        <div class="experience-item">
+            <h3>شهادة المستوى الثامن في اللغة الإنجليزية</h3>
+        </div>
+        <div class="experience-item">
+            <h3>شهادة دورة تدريبية في أساليب القيادة والتخطيط</h3>
+            <p>مركز W.D.A</p>
+        </div>
+        <div class="experience-item">
+            <h3>شهادة اجتياز برنامج حقوق الإنسان</h3>
+        </div>
+    </div>
+    <!-- قسم المهارات المهنية -->
+    <div class="skills" id="skills">
+        <h2 style="text-align: center; color: #665067;">المهارات المهنية</h2>
+        <div class="skill-item">
+            <h3>Entrepreneurial Mindset</h3>
+        </div>
+        <div class="skill-item">
+            <h3>Teamwork & Collaboration</h3>
+        </div>
+        <div class="skill-item">
+            <h3>Experience in working with WORD - EXCEL - POWERPOINT</h3>
+        </div>
+        <h2 style="text-align: center; color: #665067;">اللغات</h2>
+        <div class="skill-item">
+            <h3>Arabic (Native)</h3>
+        </div>
+        <div class="skill-item">
+            <h3>English (Proficient) Level C2</h3>
+        </div>
+    </div>
+</body>
+</html>
